@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Inter } from "next/font/google";
 import localFont from "next/font/local";
+import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
-const Inter = localFont({
+// Google Inter（推荐作为主要 sans 字体）
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+// 本地字体
+const localInter = localFont({
   src: "./fonts/Inter.ttf",
   variable: "--font-inter",
   weight: "100 900",
   display: "swap",
 });
 
-const Space = localFont({
+const space = localFont({
   src: "./fonts/Space.ttf",
   variable: "--font-space",
   weight: "100 900",
@@ -29,10 +40,24 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${Inter.variable} ${Space.variable} h-full antialiased`}
+      className={cn(
+        "h-full antialiased",
+        inter.variable, // Google Inter
+        localInter.variable, // 本地 Inter
+        space.variable, // Space 字体
+        "font-sans", // 默认使用 --font-sans
+      )}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <main>{children}</main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main>{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );
