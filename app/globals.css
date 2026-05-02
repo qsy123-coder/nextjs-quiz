@@ -5,12 +5,21 @@
   --foreground: #171717;
 }
 
+/* ====================== 字体配置 ====================== */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* 默认正文字体 → Inter */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  /* 标题/装饰字体 → Space Grotesk */
+  --font-display: var(--font-space), sans-serif;
+
+  /* 代码字体（使用系统默认，干净） */
+  --font-mono: ui-monospace, monospace;
 }
+/* ==================================================== */
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -22,5 +31,10 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans); /* 默认使用 Inter */
+}
+
+/* 标题专用字体 */
+.font-display {
+  font-family: var(--font-display);
 }
