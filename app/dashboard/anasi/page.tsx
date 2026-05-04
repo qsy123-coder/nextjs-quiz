@@ -1,7 +1,4 @@
-import ClientFetchPage from "@/components/ClientFetchPage";
-import ServerFetchPage from "@/components/ServerFetchPage";
 import Link from "next/link";
-import React from "react";
 
 const AnasiPage = () => {
   return (
