@@ -12,11 +12,12 @@ import { ROUTES } from "@/constant/routes";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { ReactNode } from "react";
 import { toast } from "sonner";
 
 type OAuthProvider = "github" | "google";
 
-export function SocialAuthForm() {
+export function SocialAuthForm({ children }: { children: ReactNode }) {
   const handleSignIn = async (provider: OAuthProvider): Promise<void> => {
     try {
       await signIn(provider, { callbackUrl: ROUTES.HOME, redirect: true });
@@ -45,6 +46,7 @@ export function SocialAuthForm() {
           </Link>
         </div>
       </CardHeader>
+      {children}
       <CardFooter className="flex-col gap-2">
         <Button
           className="w-full gap-4"

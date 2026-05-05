@@ -28,6 +28,18 @@ const Navbar = () => {
           DashBoard
         </Link>
         <ModeToggle />
+        <Link
+          href="/signin"
+          className={buttonVariants({ variant: "default", size: "lg" })}
+        >
+          Signin
+        </Link>
+        <Link
+          href="/signup"
+          className={buttonVariants({ variant: "default", size: "lg" })}
+        >
+          signup
+        </Link>
       </div>
     </nav>
   );
