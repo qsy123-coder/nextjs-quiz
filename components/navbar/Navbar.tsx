@@ -2,11 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import img from "@/public/images/site-logo.svg";
+import img1 from "@/public/icons/hamburger.svg";
 import { ModeToggle } from "../button/ModeToggle";
 import { buttonVariants } from "../ui/button";
+import MoblieNavbar from "./MoblieNavbar";
+import NavLinks from "./NavLinks";
 const Navbar = () => {
   return (
-    <nav className="flex justify-between mb-10">
+    <nav className="flex items-center justify-between mb-10">
       <Link href={"/"} className="flex gap-2 items-center">
         <Image src={img} alt="logo" width={26} height={26} />
         <p className="font-semibold text-3xl font-display">
@@ -14,32 +17,11 @@ const Navbar = () => {
         </p>
       </Link>
       <h2>Global Search</h2>
+
       <div className="flex gap-4 items-center">
-        <Link
-          href="/"
-          className={buttonVariants({ variant: "default", size: "lg" })}
-        >
-          Home
-        </Link>
-        <Link
-          href="/dashboard"
-          className={buttonVariants({ variant: "default", size: "lg" })}
-        >
-          DashBoard
-        </Link>
         <ModeToggle />
-        <Link
-          href="/signin"
-          className={buttonVariants({ variant: "default", size: "lg" })}
-        >
-          Signin
-        </Link>
-        <Link
-          href="/signup"
-          className={buttonVariants({ variant: "default", size: "lg" })}
-        >
-          signup
-        </Link>
+
+        <MoblieNavbar />
       </div>
     </nav>
   );

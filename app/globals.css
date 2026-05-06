@@ -164,3 +164,9 @@ body {
     background-image: url("/images/auth-dark.png");
   }
 }
+
+@layer components {
+  .dark-icon {
+    @apply dark:invert transition-all duration-300;
+  }
+}
