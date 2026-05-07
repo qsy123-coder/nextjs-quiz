@@ -14,8 +14,9 @@ import React from "react";
 import hamburger from "@/public/icons/hamburger.svg";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import NavLinks from "./NavLinks";
+
 const MoblieNavbar = () => {
   return (
     <Sheet>

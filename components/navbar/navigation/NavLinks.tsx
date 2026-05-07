@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { SheetClose } from "../ui/sheet";
+import { SheetClose } from "../../ui/sheet";
 
 const NavLinks = ({ isMobile = false }: { isMobile: boolean }) => {
   const path = usePathname();
@@ -17,9 +17,17 @@ const NavLinks = ({ isMobile = false }: { isMobile: boolean }) => {
         key={item.label}
         className={`${isActive && "bg-amber-500 rounded-sm"} flex text-sm gap-4 items-center p-4 justify-start `}
       >
-        <Image src={item.imgUrl} alt={item.label} width={25} height={25} />
-        <p className={`${isMobile && "font-bold "} font-semibold `}>
-          {isMobile && item.label}
+        <Image
+          src={item.imgUrl}
+          alt={item.label}
+          width={25}
+          height={25}
+          className="invert"
+        />
+        <p
+          className={`${isMobile ? "base-bold" : "base-medium"} ${!isMobile && "max-lg:hidden"}`}
+        >
+          {item.label}
         </p>
       </Link>
     );
@@ -28,7 +36,7 @@ const NavLinks = ({ isMobile = false }: { isMobile: boolean }) => {
         {components}
       </SheetClose>
     ) : (
-      <React.Fragment>{components}</React.Fragment>
+      <React.Fragment key={item.label}>{components}</React.Fragment>
     );
   });
 };

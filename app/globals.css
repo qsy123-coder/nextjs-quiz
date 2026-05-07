@@ -163,6 +163,13 @@ body {
   .dark .auth-bg {
     background-image: url("/images/auth-dark.png");
   }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
 @layer components {

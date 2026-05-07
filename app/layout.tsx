@@ -44,7 +44,7 @@ const RootLayout = async ({
     <html
       lang="en"
       className={cn(
-        "h-full antialiased",
+        "h-full antialiased  no-scrollbar",
         inter.variable, // Google Inter
         localInter.variable, // 本地 Inter
         space.variable, // Space 字体
@@ -60,7 +60,7 @@ const RootLayout = async ({
             enableSystem
             disableTransitionOnChange
           >
-            <main>{children}</main>
+            {children}
             <Toaster />
           </ThemeProvider>
         </body>
