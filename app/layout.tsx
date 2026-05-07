@@ -52,6 +52,13 @@ const RootLayout = async ({
       )}
       suppressHydrationWarning
     >
+      <head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
+      </head>
       <SessionProvider session={session}>
         <body className="min-h-full flex flex-col">
           <ThemeProvider
