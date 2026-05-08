@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const LeftSidebar = () => {
   return (
-    <section className="dark:bg-gray-900 left-0 top-0 sticky border-r h-screen flex flex-col justify-between overflow-y-hidden p-6 pt-36 max-sm:hidden">
+    <section className="background-light800_darkgradient left-0 top-0 sticky  h-screen flex flex-col justify-between border-r overflow-y-hidden p-6 pt-36 max-sm:hidden">
       <div
         className="flex flex-1 flex-col gap-6
       "

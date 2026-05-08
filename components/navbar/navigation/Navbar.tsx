@@ -9,7 +9,7 @@ import MoblieNavbar from "./MoblieNavbar";
 import NavLinks from "./NavLinks";
 const Navbar = () => {
   return (
-    <nav className="flex items-center justify-between mb-10 p-6 fixed z-50 w-full  dark:bg-gray-900   sm:px-12">
+    <nav className="flex items-center justify-between mb-10 p-6 fixed z-50 w-full  background-light800_darkgradient border-b    sm:px-12">
       <Link href={"/"} className="flex gap-2 items-center">
         <Image src={img} alt="logo" width={26} height={26} />
         <p className="font-semibold text-3xl font-display">

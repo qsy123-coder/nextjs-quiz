@@ -42,7 +42,7 @@ const RightSidebar = () => {
     },
   ];
   return (
-    <section className="pt-36 p-6 w-[350px] sticky top-0 right-0 h-screen dark:bg-gray-900 overflow-y-hidden flex flex-col gap-6 max-xl:hidden">
+    <section className="pt-36 p-6 w-[350px] sticky top-0 right-0 h-screen border-l background-light800_darkgradient overflow-y-hidden flex flex-col gap-6 max-xl:hidden">
       <div>
         <h3 className="font-bold text-3xl">Top questions</h3>
         <div className="flex flex-col gap-6 w-full  mt-8">
