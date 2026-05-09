@@ -1,7 +1,7 @@
 "use client";
 import { AskQuestionSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,8 +20,14 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-
+import { MDXEditorMethods } from "@mdxeditor/editor";
+import dynamic from "next/dynamic";
+const Editor = dynamic(() => import("@/components/editor"), {
+  // Make sure we turn SSR off
+  ssr: false,
+});
 const AskQuestionForm = () => {
+  const editorRef = useRef<MDXEditorMethods>(null);
   const form = useForm({
     resolver: zodResolver(AskQuestionSchema),
     defaultValues: {
@@ -78,6 +84,11 @@ const AskQuestionForm = () => {
                   >
                     Explain your details for your question
                   </FieldLabel>
+                  <Editor
+                    editorRef={editorRef}
+                    value={field.value}
+                    fieldChange={field.onChange}
+                  />
                   <CardDescription>
                     Please description Your question details Please description
                     Your question details Please description Your question
