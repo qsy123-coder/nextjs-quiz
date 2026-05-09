@@ -6,7 +6,7 @@ import { getTechIconClass } from "@/lib/utils";
 interface TagCardProps {
   _id: string;
   name: string;
-  questions: number;
+  questions?: number;
   showCount?: boolean;
   compact?: boolean;
 }

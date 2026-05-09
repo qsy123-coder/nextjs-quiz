@@ -52,3 +52,19 @@ export const SignupSchema = z
     message: "两次输入的密码不一致",
     path: ["confirmPassword"], // 错误信息指向 confirmPassword 字段
   });
+
+export const AskQuestionSchema = z.object({
+  title: z
+    .string()
+    .min(1, { message: "Please input at least 1 word" })
+    .max(15, { message: "The limit chararters is 15" }),
+  content: z.string().min(3, { message: "Please input at least 3 words" }),
+  tags: z
+    .array(
+      z
+        .string()
+        .min(1, { message: "required input " })
+        .max(10, { message: "10 words limited" }),
+    )
+    .max(3, { message: "The tags is limit at 3" }),
+});
