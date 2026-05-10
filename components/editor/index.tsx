@@ -10,6 +10,25 @@ import {
   MDXEditor,
   type MDXEditorMethods,
   type MDXEditorProps,
+  toolbarPlugin,
+  UndoRedo,
+  BoldItalicUnderlineToggles,
+  ConditionalContents,
+  ChangeCodeMirrorLanguage,
+  Separator,
+  CreateLink,
+  ListsToggle,
+  InsertTable,
+  InsertImage,
+  InsertThematicBreak,
+  InsertCodeBlock,
+  linkPlugin,
+  linkDialogPlugin,
+  tablePlugin,
+  imagePlugin,
+  codeBlockPlugin,
+  codeMirrorPlugin,
+  diffSourcePlugin,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 import { useTheme } from "next-themes";
@@ -32,17 +51,82 @@ export default function Editor({
   return (
     <MDXEditor
       key={resolvedTheme}
-      className="background-light800_dark200 w-full border text-muted-foreground dark-theme"
+      className={`w-full border  ${
+        resolvedTheme === "dark" ? "dark-theme " : ""
+      }`}
       contentEditableClassName="prose prose-headings:font-bold dark:prose-invert max-w-none min-h-[300px] focus:outline-none prose-p:m-0"
       markdown={value}
       onChange={fieldChange}
       plugins={[
         // Example Plugin Usage
         headingsPlugin(),
+        linkPlugin(),
+        linkDialogPlugin(),
+        tablePlugin(),
+        imagePlugin(),
         listsPlugin(),
         quotePlugin(),
+        codeBlockPlugin({ defaultCodeBlockLanguage: "" }),
+        codeMirrorPlugin({
+          codeBlockLanguages: {
+            css: "css",
+            sql: "sql",
+            txt: "txt",
+            html: "html",
+            saas: "saas",
+
+            scss: "scss",
+            bash: "bash",
+            json: "json",
+            js: "Javascript",
+            ts: "TypeScript",
+            "": "unspecified",
+            tsx: "TypeScript (React)",
+            jsx: "JavaScript (React)",
+          },
+          autoLoadLanguageSupport: true,
+          codeMirrorExtensions: theme,
+        }),
+        diffSourcePlugin({ viewMode: "rich-text", diffMarkdown: "" }),
         thematicBreakPlugin(),
         markdownShortcutPlugin(),
+        toolbarPlugin({
+          toolbarClassName: "my-classname",
+          toolbarContents: () => (
+            <ConditionalContents
+              options={[
+                {
+                  when: (editor) => editor?.editorType === "codeblock",
+                  contents: () => <ChangeCodeMirrorLanguage />,
+                },
+                {
+                  fallback: () => (
+                    <>
+                      <UndoRedo />
+                      <Separator />
+
+                      <BoldItalicUnderlineToggles />
+                      <Separator />
+
+                      <ListsToggle />
+                      <Separator />
+
+                      <CreateLink />
+                      <InsertImage />
+                      <Separator />
+
+                      <InsertTable />
+                      <InsertThematicBreak />
+                      <Separator />
+
+                      <InsertCodeBlock />
+                    </>
+                  ),
+                },
+              ]}
+            />
+          ),
+        }),
       ]}
       {...props}
       ref={editorRef}
