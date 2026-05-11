@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import dynamic from "next/dynamic";
+import TagCard from "../card/TagCard";
 const Editor = dynamic(() => import("@/components/editor"), {
   // Make sure we turn SSR off
   ssr: false,
@@ -37,6 +38,38 @@ const AskQuestionForm = () => {
     },
   });
   const onSubmit = () => {};
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    field: { value: string[] },
+  ) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const tagInput = e.currentTarget.value.trim();
+      if (tagInput && tagInput.length < 15 && !field.value.includes(tagInput)) {
+        form.setValue("tags", [...field.value, tagInput]);
+        e.currentTarget.value = "";
+        form.clearErrors("tags");
+      } else if (tagInput.length > 15) {
+        form.setError("tags", {
+          type: "manual",
+          message: "Tag should be less than 15 characters",
+        });
+      } else if (field.value.includes(tagInput)) {
+        form.setError("tags", {
+          type: "manual",
+          message: "Tag already exists",
+        });
+      }
+    }
+  };
+
+  const handleRemove = (tag: string, field: { value: string[] }) => {
+    const newTags = field.value.filter((t) => t !== tag);
+    form.setValue("tags", newTags);
+    if (newTags.length === 0) {
+      form.setError("tags", { message: "Tags at least 1" });
+    }
+  };
   return (
     <Card className="w-full   ">
       <CardHeader>
@@ -60,7 +93,6 @@ const AskQuestionForm = () => {
                     Title
                   </FieldLabel>
                   <Input
-                    {...field}
                     id="form-title"
                     aria-invalid={fieldState.invalid}
                     placeholder="your title..."
@@ -111,14 +143,37 @@ const AskQuestionForm = () => {
                   >
                     Tags
                   </FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-tags"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="your tags..."
-                    autoComplete="off"
-                    className="min-h-[56px]"
-                  />
+                  <div>
+                    <Input
+                      // {...field}
+                      id="form-tags"
+                      aria-invalid={fieldState.invalid}
+                      placeholder="your tags..."
+                      autoComplete="off"
+                      className="min-h-[56px]"
+                      onKeyDown={(e) => {
+                        handleKeyDown(e, field);
+                      }}
+                    />
+
+                    {field.value.length > 0 && (
+                      <div className="flex gap-2 flex-wrap mt-4.5">
+                        {field?.value?.map((tag: string) => (
+                          <TagCard
+                            key={tag}
+                            _id={tag}
+                            name={tag}
+                            remove
+                            compact
+                            isButton
+                            handleRemove={() => {
+                              handleRemove(tag, field);
+                            }}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <CardDescription>
                     The tags is limited at 3 tags
                   </CardDescription>
