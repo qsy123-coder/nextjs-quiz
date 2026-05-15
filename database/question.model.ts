@@ -27,3 +27,5 @@ const QuestionSchema = new Schema(
 
 const Question =
   models?.Question || model<IQuestion>("Question", QuestionSchema);
+
+export default Question;
